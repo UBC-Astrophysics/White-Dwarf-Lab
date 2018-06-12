@@ -1,0 +1,110 @@
+\documentclass{article}
+\usepackage[pdftex]{graphicx}
+\graphicspath{{../images/}}
+\usepackage{boxedminipage}
+\usepackage[hints]{ms}
+%\usepackage{ms}
+%\usepackage{tikz}
+%\usepackage[utf8]{inputenc}
+\begin{document}
+\begin{titlebox}{White-Dwarf Luminosity Functions}
+Ilaria Caiazzo, Jeremy Heyl \\
+TAs: Xianfei Zhang, Sarafina Nance, Ilka Petermann
+\end{titlebox}
+
+\section{Introduction}
+
+White dwarfs are the final stage in the evolution of stars less than about eight solar masses.  Basically, all nuclear energy generation has ceased, so the stars shrink and cool.  
+
+We have created several models of really young white dwarfs from the evolution of stars of one, two, four and eight solar masses for you to explore the subsequent evolution.
+
+We will look at how white dwarfs move through the Hertzsprung-Russell diagram and colour-magnitude diagrams as they age and also examine the luminosity function of white dwarfs, how many white dwarfs are there of a given brightness.
+
+\section{The Inlist}
+
+We will start with the test\_suite directory wd\_cool and change it for our initial models: 
+\begin{verbatim}
+    &star_job
+      show_log_description_at_start = .false.
+      mesa_dir = '../../..'
+      save_model_number = 31
+      save_model_filename = 'hires_surface.mod'
+      load_saved_model = .true.
+      saved_model_name = 'your_model_here.mod'
+\end{verbatim}
+
+\hint{\textbf{Hint:}
+
+Look through the entire inlist files (there are several) and look at the \texttt{rn} script too.  What does it do?
+}
+
+\textbf{Task:} \\ 
+Change the line with saved\_model\_name to use our first model from a one-solar-mass star (\texttt{52SMWD.mod}).  We will look at the other white dwarfs a bit later.
+
+\section{The Evolution}
+
+We will first focus on the white dwarf that results from a one-solar-mass star.  This is typical for the white dwarfs in globular clusters.
+
+\textbf{Task:}\vspace{-1em}
+\begin{enumerate}
+ \setlength\itemsep{0em}
+\item Let's first look at the track of luminosity against effective temperature.  What is happening to the star?
+\item Let's look at luminosity against core temperature.  What is happening here?  What are the different regimes?
+\item Let's look at luminosity against time.  What are the different regimes here?
+\item 
+Now run the evolution for the more massive white dwarfs and add their curves to the preceding diagrams.
+\end{enumerate}
+
+\hint{
+\textbf{Hint:}
+
+You may find that some of the models fail to run.  You can try changing the atmosphere perhaps to \texttt{simple\_photosphere}.  You can also increase the number of retries and backups or increase the \texttt{varcontrol} parameter.
+
+}
+
+\textbf{Bonus Task:}\\
+You can use the include program \texttt{makefakehistory.py} to recalculate the thermal evolution assuming that specific heat capacity of the star is constant (it remains liquid) or that the cooling is due to emission of radiation from the surface.  Compare the results of these simulations to the original ones.
+
+\section{Observations}
+
+We have included a file with the observed fluxes of about 2,000 old white dwarfs in the globular cluster 47 Tucanae.  The white dwarfs that are being born in this cluster come from stars whose masses are just a bit less than the mass of the Sun.   Because the white dwarfs are relatively young compared to the age of the cluster, we can assume that they are being born at a constant rate, so their cumulative luminosity function is an estimate of their cooling evolution.
+
+\textbf{Task: Old White Dwarfs}\vspace{-1em}
+\begin{enumerate}
+ \setlength\itemsep{0em}
+\item Use the \texttt{paintisochrone.py} program to add absolute magnitudes to your history files.  We have provided an atmosphere file for this called \texttt{colmag.Bergeron.all.Vega.txt}.
+\item Plot the colour $F814W$ against $F606W-F814W$ from your models
+\item Plot $F814W$ against time.
+\item Add your data to the two plots.  
+\item Which evolution do they agree with the best?
+\end{enumerate}
+\hint{\textbf{Hint:}
+
+How do you have to transform the model magnitudes, colours and ages to fit the observations?  What are the key parameters that you can learn from this step?}
+
+\textbf{Bonus Task:}\\
+If one of your white dwarf evolutions lasted long enough, you will see the effects of the onset of convection in the cooling track.  Compare this model with observations.   Plot the profile files that correspond to when the bump in the cooling curve occurs to verify that both convection and freezing are occurring.   Perhaps add entropy information to the profile and re-run. 
+
+\hint{\textbf{Hint:}
+
+The key parameter to plot is the specific entropy but it doesn't get output in the profile file by default.  You could add it and restart your run using the \texttt{re} command with a photo file or you could plot $\log P$ against $\log \rho$.
+
+}
+
+\textbf{Task: Young White Dwarfs}
+Young white dwarfs are the brightest stars in the cluster in the ultraviolet.  We have provided a list of young white dwarfs in 47 Tucanae for you to study.
+\begin{enumerate}
+ \setlength\itemsep{0em}
+\item Plot the magnitude $F225W$ against $F225W-F336W$ from your models
+\item Plot $F225W$ against time.
+\item Add the observed  data to the two plots.  
+\item Which evolution do they agree with the best?
+\end{enumerate}
+
+\hint{\textbf{Hint:}
+
+Again how do you have to transform the model magnitudes, colours and ages to fit the observations?  What are the key parameters that you can learn from this step?  Can they be different than in the previous task?}
+
+We will study the young white dwarfs in more detail in the next lab where you will program MESA to vary the neutrino rates within the white dwarfs and see what happens.
+
+\end{document}

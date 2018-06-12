@@ -1,0 +1,60 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ms}[2018/06/10 Little Worksheet Package]
+
+\DeclareOption{hints}{
+\renewcommand{\hint}[1]{
+\framebox{
+\begin{minipage}{\linewidth}
+#1
+\end{minipage}
+
+}\\
+    
+}}
+
+\newcommand{\hint}[1]{\relax}
+
+\ProcessOptions\relax
+
+\setlength{\fboxrule}{2pt}
+\setlength{\textwidth}{7 in}
+\setlength{\textheight}{9.2 in}
+\setlength{\oddsidemargin}{-18pt}
+\setlength{\evensidemargin}{-10pt}
+\setlength{\topmargin}{-24pt}
+\setlength{\headheight}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\parskip}{4pt}
+\setlength{\parindent}{0.0in}
+\setlength{\marginparwidth}{0pt}
+\setlength{\marginparsep}{0pt}
+\setlength{\hoffset}{-0pt}
+\newcommand{\namebox}{
+\begin{flushright}
+\framebox{
+\begin{minipage}{0.5\linewidth}
+\Large{
+\vspace{0.3in}
+Name: \underline{\hspace{3.12in}}
+\vspace{0.3in}\\
+Student \#: \underline{\hspace{2.75in}}
+}
+\end{minipage}
+}
+\end{flushright}
+}
+\newenvironment{titlebox}[1]
+{
+\bigskip
+\begin{center}
+\begin{boxedminipage}{0.8\linewidth}
+\begin{center}
+{\Huge Simulating Stars --- #1} \\
+\Large
+}
+{
+\end{center}
+\end{boxedminipage}
+\end{center}
+\bigskip\par
+}
