@@ -3,6 +3,23 @@ import numpy as np
 import sys
 from scipy.interpolate import RectBivariateSpline, interp1d
 
+import gzip
+import bz2
+import lzma
+
+ext_dict = {
+    ".gz" : gzip.open,
+    ".bz2" : bz2.BZ2File,
+    ".xz" : lzma.open
+    }
+
+
+def open_by_ext(filename,dum):
+    for ext, fn in ext_dict.items():
+        if filename.endswith(ext):
+            return fn(filename,dum)
+    return(open(filename,dum))
+
 def getdata(arr,key,dict):
     try:
         res=arr[dict[key]]
@@ -17,7 +34,7 @@ if (len(sys.argv)<4):
 
 # read in the header row of the isochrone file
 # check the first 100 rows
-with open(sys.argv[1],"r") as f:
+with open_by_ext(sys.argv[1],"rt") as f:
     for i in range(100):
         line = f.readline()
         if "mass" in line and len(line)>15 and not ("initial_mass" in line):
@@ -45,7 +62,8 @@ else:
 # print(history_label_dict)
 # print(skipnum)
 
-aa = np.loadtxt(sys.argv[1],skiprows=skipnum,unpack=True)
+with open_by_ext(sys.argv[1],"rt") as f:
+    aa = np.loadtxt(f,skiprows=skipnum,unpack=True)
 time=getdata(aa,'star_age',history_label_dict)
 m1=getdata(aa,'mass',history_label_dict)
 logL=getdata(aa,'log_L',history_label_dict)
@@ -67,7 +85,7 @@ logLHe=getdata(aa,'log_LHe',history_label_dict)
 # Tvec=10**logTeff
 
 # read in the header row of the spectral file
-lines = open(sys.argv[2],"r").readlines()
+lines = open_by_ext(sys.argv[2],"rt").readlines()
 # skip the first few lines
 for l in lines[4:]:
     if l.startswith('!'):
@@ -87,15 +105,18 @@ for i,l in enumerate(labels):
     newlabels.append('%d:%s'%(i+1,l))
     olabels.append(l)
 labels=newlabels
+
+with open_by_ext(sys.argv[2],"rt") as f:
+    Teff,Logg = np.loadtxt(f,comments='!',unpack=True,usecols=(0,1))
     
-Teff,Logg = np.loadtxt(sys.argv[2],comments='!',unpack=True,usecols=(0,1))
 lTeff=np.log10(Teff)
 Logguni = np.unique(Logg)
 lTeffuni = np.unique(lTeff)
 lTeffuni=np.hstack([lTeffuni[0]-0.5, lTeffuni, lTeffuni[-1]+0.5])
 xx,yy = np.meshgrid(lTeffuni,Logguni)
 
-Magnitudes = np.loadtxt(sys.argv[2],comments='!',unpack=True,usecols=(range(4,nlabels)))
+with open_by_ext(sys.argv[2],"rt") as f:
+    Magnitudes = np.loadtxt(f,comments='!',unpack=True,usecols=(range(4,nlabels)))
 mag = []
 for j in range(len(Magnitudes)):
     mag606 = xx
