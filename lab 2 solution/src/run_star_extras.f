@@ -49,7 +49,7 @@
          s% how_many_extra_profile_columns => how_many_extra_profile_columns
          s% data_for_extra_profile_columns => data_for_extra_profile_columns  
 
-         s% other_neu => our_other_neu
+         s% other_neu => my_other_neu
       end subroutine extras_controls
       
       
@@ -159,6 +159,14 @@
          if (ierr /= 0) return
          extras_finish_step = keep_going
          call store_extra_info(s)
+         
+         if (s% model_number == 40) then
+             s% mesh_delta_coeff = 0.7
+         endif
+         
+         if (s% Teff < 40000) then
+             s% which_atm_option = 'WD_tau_25_tables'
+         endif
       end function extras_finish_step
       
       
