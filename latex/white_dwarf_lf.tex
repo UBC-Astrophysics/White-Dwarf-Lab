@@ -145,16 +145,20 @@ The file with the observed white dwarfs is called \texttt{47tuc\_fromIR.dat} and
 \end{enumerate}
 
 Now that we have the magnitudes in 814 and 606, we can finally compare our models with observations.
+
+\textbf{Task:}\vspace{-1em}
 \begin{enumerate}
 \item Load the file \texttt{47tuc\_fromIR.dat}.
 \item Make a CMD plotting he colour $F814W$ against $F606W-F814W$ from the data. This is the WD cooling sequence of 47 Tucanae.
 \item Add both theoretical curves on the plot: the one called \texttt{paintedhistory\_ex.data} and the one you made.
-\item Y
-\item Which evolution do they agree with the best?
+\item You can see that both of them fall far from the data. That's because the models are still in absolute magnetudes, while the data is in observed magnitudes. In order to compare them, we need to add the distant modulus (13.45) and reddening (0.65) to the models, for example:
+\begin{verbatim}
+    plt.plot(pdata['F606W']-pdata['F814W']+0.065,pdata['F814W']+13.45,c='r')
+\end{verbatim}
+\item Now we can compare them. Which evolution does the data agree with the best?
 \end{enumerate}
-\hint{\textbf{Hint:}
 
-How do you have to transform the model magnitudes, colours and ages to fit the observations?  What are the key parameters that you can learn from this step?}
+
 
 \textbf{Bonus Task:}\\
 If one of your white dwarf evolutions lasted long enough, you will see the effects of the onset of convection in the cooling track.  Compare this model with observations.   Plot the profile files that correspond to when the bump in the cooling curve occurs to verify that both convection and freezing are occurring.   Perhaps add entropy information to the profile and re-run. 
