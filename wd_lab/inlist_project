@@ -37,7 +37,7 @@
       
       correction_xa_limit = 5d-3
       
-      varcontrol_target = 5e-5
+      varcontrol_target = 1e-3
       mesh_delta_coeff = 2
 
       log_L_lower_limit = -4
