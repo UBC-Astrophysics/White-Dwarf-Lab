@@ -3,13 +3,15 @@
 
 \DeclareOption{hints}{
 \renewcommand{\hint}[1]{
+\vspace{10pt}
+\setlength{\fboxrule}{0.5pt}
 \framebox{
 \begin{minipage}{\linewidth}
 #1
 \end{minipage}
 
 }\\
-    
+\vspace{10pt}    
 }}
 
 \newcommand{\hint}[1]{\relax}
