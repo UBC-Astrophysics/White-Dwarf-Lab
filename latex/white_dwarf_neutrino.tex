@@ -25,19 +25,18 @@ The cooling of young white dwarfs is dominated by neutrinos, so young white dwar
  \item 
 Make a copy of your working directory from the previous lab to build your neutrino code.
 \item 
-You are going to replace the built-in neutrino code with your own code, so go to the directory \texttt{\$MESA\_DIR/star/other}.  You are interested in the file called \texttt{other\_neu.f90}.  Copy the subroutine \texttt{null\_other\_neu} from that file into your \texttt{run\_star\_extras.f} at the end just above the line \texttt{end module run\_star\_extras}.
+You are going to replace the built-in neutrino code with your own code, so go to the directory \texttt{\$MESA\_DIR/star/other}.  You are interested in the file called \texttt{other\_neu.f90}.  Copy the subroutine \texttt{null\_other\_neu} from that file into your \texttt{run\_star\_extras.f}. You can copy it anywhere after the word \texttt{contains}, and it has to be at the same level as the other subroutines.
 \item Compile MESA now by typing \texttt{./mk} in your working directory.
 \item Rename the subroutine to something else, for example \texttt{my\_other\_neu}.  You do this at the top and the bottom of the subroutine.
 \item 
-We would like to use a parameter that we can set in the inlist (e.g.\ \texttt{s\%x\_ctrl(1)}), so we will need to define a variable \texttt{s} to hold the \texttt{star\_ptr} and then copy the \texttt{star\_ptr} into it.
+We would like to use a parameter that we can set in the inlist (e.g.\ \texttt{s\% x\_ctrl(1)}), so we will need to define a variable \texttt{s} to hold the \texttt{star\_ptr} and then copy the \texttt{star\_ptr} into it.
 \item 
-The neutrino rates and their derivatives are held in the array \texttt{loss}.  You can multiply the entire array by a constant as \texttt{loss=s\%x\_ctrl(1)*loss}.    This increases everything by that factor.  If your new neutrino rates were more complicated than a simple multiplication, you would have to calculate the new derivatives of loss rates.
-\item 
-The array \texttt{sources} divide the loss rates by the process that generates them.  Let's multiply all of the sources by the same constant.  Again, if your additional neutrinos came from a particular process, you could supply that information here.
+The neutrino rates and their derivatives are held in the array \texttt{loss}.  You can multiply the entire array by a constant as \texttt{loss = s\% x\_ctrl(1) * loss}. This increases everything by that factor. If your new neutrino rates were more complicated than a simple multiplication, you would have to calculate the new derivatives of loss rates.
+\item The array \texttt{sources} divides the loss rates by the process that generates them.  Let's multiply all of the sources by the same constant. Again, if your additional neutrinos came from a particular process, you could supply that information here.
 \item
 We have to let MESA know which routine to use for the new neutrino rates.  The key subroutine in \texttt{run\_star\_extras.f} is called \texttt{extras\_controls}.  It is the first subroutine in the file.  We add the command 
 \begin{verbatim}
-    s%other_neu => my_other_neu
+    s% other_neu => my_other_neu
 \end{verbatim}
 at the end of the first subroutine which tells MESA to use our routine if we ask for it.  
 \item
