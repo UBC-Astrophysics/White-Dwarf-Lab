@@ -271,7 +271,7 @@
       end subroutine move_extra_info
 
       
-      subroutine our_other_neu(  &
+      subroutine my_other_neu(  &
             id, k, T, log10_T, Rho, log10_Rho, abar, zbar, z2bar, log10_Tlim, flags, &
             loss, sources, ierr)
          use neu_lib, only: neu_get
@@ -300,7 +300,7 @@
             loss, sources, ierr)
          loss=s%x_ctrl(1)*loss
          sources=s%x_ctrl(1)*sources
-      end subroutine our_other_neu
+      end subroutine my_other_neu
 
       end module run_star_extras
       
