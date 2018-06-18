@@ -6,6 +6,7 @@
 %\usepackage{ms}
 %\usepackage{tikz}
 %\usepackage[utf8]{inputenc}
+
 \begin{document}
 \begin{titlebox}{White Dwarfs and Neutrinos}
 Ilaria Caiazzo, Jeremy Heyl \\
@@ -24,8 +25,8 @@ The cooling of young white dwarfs is dominated by neutrinos, so young white dwar
  \item 
 Make a copy of your working directory from the previous lab to build your neutrino code.
 \item 
-You are going to replace the built-in neutrino code with your own code, so go to the directory \texttt{\$MESA\_DIR/star/other}.  You are interested in \texttt{other\_neu.f90}.  Copy the subroutine \texttt{null\_other\_neu} into your \texttt{run\_star\_extras.f} at the end just above the line \texttt{end module run\_star\_extras}.
-\item Replace the subroutine to something else, for example \texttt{my\_other\_neu}.
+You are going to replace the built-in neutrino code with your own code, so go to the directory \texttt{\$MESA\_DIR/star/other}.  You are interested in the file called \texttt{other\_neu.f90}.  Copy the subroutine \texttt{null\_other\_neu} into your \texttt{run\_star\_extras.f} at the end just above the line \texttt{end module run\_star\_extras}.
+\item Rename the subroutine to something else, for example \texttt{my\_other\_neu}.
 \item 
 We would like to use a parameter that we can set in the inlist (e.g.\ \texttt{s\%x\_ctrl(1)}), so we will need to define a variable \texttt{s} to hold the \texttt{star\_ptr} and then copy the \texttt{star\_ptr} into it.
 \item 
@@ -80,7 +81,8 @@ You may have to change the number of retries, backups and varcontrol to get the 
 \item Let's look at luminosity against core temperature.  Does varying the neutrinos have an effect?
 \item Let's look at luminosity against time.  Does varying the neutrinos have an effect?
  \item 
- The cumulative luminosity function measures the cooling evolution of the white dwarfs.  The young ones are bright in the ultraviolet.  Redo the plots of the cumulative luminosity functions of the observed white dwarfs with your new models.
+ The cumulative luminosity function measures the cooling evolution of the white dwarfs.  The young ones are bright in the ultraviolet.  Redo the plots of the cumulative luminosity functions of the observed white dwarfs with your new models. 
+ \item Remember to add the distance modulus, birth-rate estimate and possibly a shift in the age of the white dwarfs as you did in the earlier lab.
 \end{enumerate}
 
 \end{document}

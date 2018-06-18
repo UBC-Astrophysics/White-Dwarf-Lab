@@ -32,7 +32,7 @@ Also, we used the same \texttt{inlist\_pgstar} as the one we created on the firs
 But before starting the run, we need to make some changes.
 
 \textbf{Task:} \\ 
-In \texttt{inlist\_project}, the value called \texttt{mesh\_delta\_coeff} is set equal to 2. This parameter determines how fine the mesh is: a larger value increases the max allowed deltas and decreases the number of grid points and a smaller does the opposite. E.g., you will roughly double the number of grid points if you cut \texttt{mesh\_delta\_coeff} in half. We need a high value of \texttt{mesh\_delta\_coeff} in the first few models to help the run relax, but we want a finer mesh for later stages.
+In \texttt{inlist\_project}, the value called \texttt{mesh\_delta\_coeff} is set equal to 2. This parameter determines how fine the mesh is: a larger value increases the max allowed deltas and decreases the number of grid points and a smaller does the opposite. e.g., you will roughly double the number of grid points if you cut \texttt{mesh\_delta\_coeff} in half. We need a high value of \texttt{mesh\_delta\_coeff} in the first few models to help the run relax, but we want a finer mesh for later stages.
 
 Also, the atmosphere boundary condition are set to \texttt{which\_atm\_option = `grey\_and\_cap'}. These are ok for high temperatures, but for effective temperatures lower that 40,000 K, the boundary conditions called \texttt{`WD\_tau\_25\_tables'} are much better for a WD.
 
@@ -159,16 +159,15 @@ Now that we have the magnitudes in 814 and 606, we can finally compare our model
 \item Now we can compare them. Which evolution does the data agree with the best?
 \end{enumerate}
 
-If we assume that the white dwarfs in the cluster are born at a constant rate, we can use their cumulative luminosity function as a proxy for their cooling evolution. In the file \texttt{47tuc\_fromIR.dat} there is a column called `cumweight', that indicates, for each star, how many stars we expect in the field at that magnitude of brighter. This cumulative distribution is calculated by counting how many stars are in the image and correcting the number for the ones that the telescope might have missed (the completeness is given as a percentage in the column `comp'. In this field, which is in the outskirts of the cluster, we estimated the birth rate to be about 1 WD every $10^6$ years.
+If we assume that the white dwarfs in the cluster are born at a constant rate, we can use their cumulative luminosity function as a proxy for their cooling evolution. In the file \texttt{47tuc\_fromIR.dat} there is a column called `cumweight', that indicates, for each star, how many stars we expect in the field at that magnitude or brighter.  This cumulative distribution is calculated by counting how many stars are in the image and correcting the number for the ones that the telescope might have missed (the completeness is given as a percentage in the column `comp'. In this field, which is in the outskirts of the cluster, we estimated the birth rate to be about 1 WD every $6 \times 10^6$ years.
 
 \textbf{Task:}\vspace{-1em}
 \begin{enumerate}
-\item Plot the magnitude in $F814W$ against the cumulative distribution divided by the birth rate. You will get the cooling curve of the white dwarfs in the cluster. Make the x-axis logarithmic.
+\item Plot the magnitude in $F814W$ against the cumulative distribution divided by the birth rate (you can just multiply `cumweight' by $6 \times 10^6$~years). You will get the cooling curve of the white dwarfs in the cluster. Make the x-axis logarithmic.
 \item On top of it, plot the magnitude in $F814W$ against the log of the star age for your theoretical models. And don't forget to add the distance modulus!
 \item Since the zero age of the WD we chose is arbitrary, you might have to add or subtract some small constant to the age of your models to make them fit better the data. 
 \item Which evolution does the data agree with the best?
 \end{enumerate}
-
 
 \textbf{Bonus Task:}\\
 If one of your white dwarf evolutions lasted long enough, you will see the effects of the onset of convection in the cooling track.  Compare this model with observations.   Plot the profile files that correspond to when the bump in the cooling curve occurs to verify that both convection and freezing are occurring.   Perhaps add entropy information to the profile and re-run. 
@@ -181,7 +180,7 @@ The key parameter to plot is the specific entropy but it doesn't get output in t
 
 \subsection{The inner field}
 
-In the file \texttt{47tuc\_fromUV.dat} you can find the observed flux from about 3000 white dwarfs. These white dwarfs live in the center of the cluster, where the density of stars is extremely high. For this reason, it is hard to detect white dwarfs in the visible or in the infrared, as the light is dominated by the very bright red giants. However, young white dwarfs are the brightest objects in the UV, because they are very hot. That's why we observed them in the filters $F225W$ and $F336W$ with Hubble. You can see the UV image here: \url{http://coolpulsars.org/images/47TucCore_Image/}.
+In the file \texttt{47tuc\_fromUV.dat} you can find the observed flux from about 3000 white dwarfs. These white dwarfs live in the center of the cluster, where the density of stars is extremely high. For this reason, it is hard to detect white dwarfs in the visible or in the infrared, as the light is dominated by the very bright red giants. However, young white dwarfs are the brightest objects in the UV, because they are very hot. That's why we observed them in the filters $F225W$ and $F336W$ with Hubble. You can see the UV image here: \url{http://coolpulsars.org/images/47TucCore_Image/}.  The white dwarfs are the blue dots.
 
 This set of young white dwarfs in the UV is what we are going to use in the next lab, so let's take a look at it.
 
@@ -189,7 +188,7 @@ This set of young white dwarfs in the UV is what we are going to use in the next
 \begin{enumerate}
  \setlength\itemsep{0em}
 \item Make a CMD with the magnitude $F225W$ against $F225W-F336W$ from the data and from your models. The distance modulus is of course the same, but do you need to add reddening in these filters? How much?
-\item Make a cumulative distribution plot for $F225W$ as we did before for $F814W$. This time though, since we are in the center of the clusted and the density of stars is higher, we expect a higher birth rate. Can you figure it out from comparing the models with the data?
+\item Make a cumulative distribution plot for $F225W$ as we did before for $F814W$. This time though, since we are in the center of the clusters and the density of stars is higher, we expect a higher birth rate. Can you figure it out from comparing the models with the data?
 \end{enumerate}
 
 We will study the young white dwarfs in more detail in the next lab where you will program MESA to vary the neutrino rates within the white dwarfs and see what happens.
