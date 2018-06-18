@@ -108,7 +108,7 @@ We want to use \texttt{run\_star\_extras.f} to make those changes. If you open t
 
 \section{The Evolution}
 
-As the \texttt{52SMWD.mod} runs, take a look at the Jupyter notebook called White-Dwarf-Lab. A few example plot are showed for a history.data file that comes from the evolution of a more massive WD ($M=1.17$ M$_\odot$).
+As the \texttt{52SMWD.mod} runs, take a look at the Jupyter notebook called White-Dwarf-Lab. A few example plots are shown for a history.data file that comes from the evolution of a more massive WD ($M=1.17$ M$_\odot$).
 
 \textbf{Task:}\vspace{-1em}
 \begin{enumerate}
@@ -134,13 +134,22 @@ You can use the include program \texttt{makefakehistory.py} to recalculate the t
 
 We have included a file with the observed fluxes of about 2,000 old white dwarfs in the globular cluster 47 Tucanae.  The white dwarfs that are being born in this cluster come from stars whose masses are just a bit less than the mass of the Sun.   Because the white dwarfs are relatively young compared to the age of the cluster, we can assume that they are being born at a constant rate, so their cumulative luminosity function is an estimate of their cooling evolution.
 
+The file with the observed white dwarfs is called \texttt{47tuc\_fromIR.dat} and presents the observed magnitudes in the Hubble filters F814W (second column) and F606W (third column), and the difference between the two (first column).
+
 \textbf{Task: Old White Dwarfs}\vspace{-1em}
 \begin{enumerate}
  \setlength\itemsep{0em}
-\item Use the \texttt{paintisochrone.py} program to add absolute magnitudes to your history files.  We have provided an atmosphere file for this called \texttt{colmag.Bergeron.all.Vega.txt}.
+\item Use the \texttt{paintisochrone.py} program to add absolute magnitudes to your history files.  We have provided an atmosphere file for this called \texttt{colmag.Bergeron.all.Vega.txt}. The code needs three arguments, the name of the history file, the name of the atmosphere file, and the name of the output file. In the Jupyter notebook you can see the example we made for the history\_example.data file that we provided.
 \item Plot the colour $F814W$ against $F606W-F814W$ from your models
 \item Plot $F814W$ against time.
-\item Add your data to the two plots.  
+\end{enumerate}
+
+Now that we have the magnitudes in 814 and 606, we can finally compare our models with observations.
+\begin{enumerate}
+\item Load the file \texttt{47tuc\_fromIR.dat}.
+\item Make a CMD plotting he colour $F814W$ against $F606W-F814W$ from the data. This is the WD cooling sequence of 47 Tucanae.
+\item Add both theoretical curves on the plot: the one called \texttt{paintedhistory\_ex.data} and the one you made.
+\item Y
 \item Which evolution do they agree with the best?
 \end{enumerate}
 \hint{\textbf{Hint:}

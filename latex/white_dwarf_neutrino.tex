@@ -24,43 +24,62 @@ The cooling of young white dwarfs is dominated by neutrinos, so young white dwar
  \item 
 Make a copy of your working directory from the previous lab to build your neutrino code.
 \item 
-Find the correct routines to change in \texttt{run\_star\_extras.f}.
+You are going to replace the built-in neutrino code with your own code, so go to the directory \texttt{\$MESA\_DIR/star/other}.  You are interested in \texttt{other\_neu.f90}.  Copy the subroutine \texttt{null\_other\_neu} into your \texttt{run\_star\_extras.f} at the end just above the line \texttt{end module run\_star\_extras}.
+\item Replace the subroutine to something else, for example \texttt{my\_other\_neu}.
 \item 
-Using a parameter that you can set in the inlist, multiply the neutrino rate and its derivatives by the parameter.
+We would like to use a parameter that we can set in the inlist (e.g.\ \texttt{s\%x\_ctrl(1)}), so we will need to define a variable \texttt{s} to hold the \texttt{star\_ptr} and then copy the \texttt{star\_ptr} into it.
+\item 
+The neutrino rates and their derivatives are held in the array \texttt{loss}.  You can multiply the entire array by a constant as \texttt{loss=s\%x\_ctrl(1)*loss}.  
+\item 
+The array \texttt{sources} divide the loss rates by the process that generates them.  Let's multiply all of the sources by the same constant.
 \item
+We have to let MESA know which routine to use for the new neutrino rates so we add the command 
+\begin{verbatim}
+    s%other_neu => my_other_neu
+\end{verbatim}
+at the end of the first subroutine in \texttt{run\_star\_extras.f} called \texttt{extras\_controls}.
+\item
+Finally we have to tell MESA in the inlist that we want to use a new neutrino routine and the value of our control variable, so we insert the following into the controls section of the inlist
+\begin{verbatim}
+        use_other_neu = .true.
+        x_ctrl(1) = 10
+\end{verbatim}
+to give ten times the neutrino cooling.
+\end{enumerate}
+\hint{\textbf{Solution:}\\
+\\
+\includegraphics[width=0.8\textwidth]{my_other_neu.png}
+
+\includegraphics[width=0.8\textwidth]{extra_controls.png}
+}
+
+\section{Evolution}
+
+\textbf{Task:}
+\begin{enumerate}
+    \item 
 Run the evolution of the best-fitting model from the previous lab with various neutrino rates, 0.1, 0.3, 3 and 10 times the standard rate.
 \item Use \texttt{paintisochone.py} to calculate the absolute magnitudes of your model white dwarfs.
 \end{enumerate}
 
-\textbf{Bonus Task:}
-MESA keeps track of all of the various neutrino rates.  Multiply just the plasma neutrinos and add the extra neutrino production to the totals.
-
-\hint{\textbf{Hint:}
-
-Which part of \texttt{run\_star\_extras.f} will have the neutrino routines?
-}
+%\textbf{Bonus Task:}
+%MESA keeps track of all of the various neutrino rates.  Multiply just the plasma neutrinos and add the extra neutrino %production to the totals.
 
 \hint{\textbf{Hint:}
 
 You may have to change the number of retries, backups and varcontrol to get the new models to work.
 }
 
-\section{The Evolution}
+\section{Analysis}
 
 \textbf{Task:}\vspace{-1em}
 \begin{enumerate}
  \setlength\itemsep{0em}
 \item Let's first look at the track of luminosity against effective temperature.  Does varying the neutrinos have an effect?
 \item Let's look at luminosity against core temperature.  Does varying the neutrinos have an effect?
-\item Let's look at luminosity against time. 
- Does varying the neutrinos have an effect?
+\item Let's look at luminosity against time.  Does varying the neutrinos have an effect?
  \item 
-Which set of observations from the previous lab could probe the effect of neutrinos?  Make the plots using the young and old white dwarf data files.
+ The cumulative luminosity function measures the cooling evolution of the white dwarfs.  The young ones are bright in the ultraviolet.  Redo the plots of the cumulative luminosity functions of the observed white dwarfs with your new models.
 \end{enumerate}
-
-\hint{\textbf{Hint:}
-
-The cumulative luminosity function measures the cooling evolution of the white dwarfs.  The young ones are bright in the ultraviolet.
-}
 
 \end{document}
