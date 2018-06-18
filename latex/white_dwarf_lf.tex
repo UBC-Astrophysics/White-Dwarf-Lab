@@ -40,7 +40,7 @@ We want to use \texttt{run\_star\_extras.f} to make those changes. If you open t
 
 \begin{enumerate}
     \item Copy the content of \texttt{standard\_run\_star\_extras.inc} into the \texttt{run\_star\_extras.f} file in place of the line \texttt{include `standard\_run\_star\_extras.inc'}. You can see that these are just the standard \texttt{run\_star\_extras} routines. After copying the content into your \texttt{run\_star\_extras.f}, it is safe to try and make your folder to check if you copied everything all right.
-    \item Use \texttt{run\_star\_extras.f} to change the \texttt{mesh\_delta\_coeff} to 0.7 after the 40th model.
+    \item Use \texttt{run\_star\_extras.f} to change the \texttt{mesh\_delta\_coeff} to 0.7 after the 15th model.
     \item Use \texttt{run\_star\_extras.f} to change the atmosphere boundary conditions to \texttt{'WD\_tau\_25\_tables'} when the effective temperature falls lower than 40,000 K.
 \end{enumerate}
 
@@ -132,6 +132,7 @@ You can use the include program \texttt{makefakehistory.py} to recalculate the t
 
 \section{Observations}
 
+\subsection{The outer field}
 We have included a file with the observed fluxes of about 2,000 old white dwarfs in the globular cluster 47 Tucanae.  The white dwarfs that are being born in this cluster come from stars whose masses are just a bit less than the mass of the Sun.   Because the white dwarfs are relatively young compared to the age of the cluster, we can assume that they are being born at a constant rate, so their cumulative luminosity function is an estimate of their cooling evolution.
 
 The file with the observed white dwarfs is called \texttt{47tuc\_fromIR.dat} and presents the observed magnitudes in the Hubble filters F814W (second column) and F606W (third column), and the difference between the two (first column).
@@ -149,15 +150,24 @@ Now that we have the magnitudes in 814 and 606, we can finally compare our model
 \textbf{Task:}\vspace{-1em}
 \begin{enumerate}
 \item Load the file \texttt{47tuc\_fromIR.dat}.
-\item Make a CMD plotting he colour $F814W$ against $F606W-F814W$ from the data. This is the WD cooling sequence of 47 Tucanae.
-\item Add both theoretical curves on the plot: the one called \texttt{paintedhistory\_ex.data} and the one you made.
-\item You can see that both of them fall far from the data. That's because the models are still in absolute magnetudes, while the data is in observed magnitudes. In order to compare them, we need to add the distant modulus (13.45) and reddening (0.65) to the models, for example:
+\item Make a CMD plotting the colour $F814W$ against $F606W-F814W$ from the data. This is the WD cooling sequence of 47 Tucanae.
+\item Add both theoretical curves on the plot: the one called \texttt{paintedhistory\_ex.data} and the one you made. And others if you made more than one.
+\item You can see that both of them fall far from the data. That's because the models are still in absolute magnetudes, while the data is in observed magnitudes. In order to compare them, we need to add the distant modulus (13.45) and reddening (0.065) to the models, for example:
 \begin{verbatim}
     plt.plot(pdata['F606W']-pdata['F814W']+0.065,pdata['F814W']+13.45,c='r')
 \end{verbatim}
 \item Now we can compare them. Which evolution does the data agree with the best?
 \end{enumerate}
 
+If we assume that the white dwarfs in the cluster are born at a constant rate, we can use their cumulative luminosity function as a proxy for their cooling evolution. In the file \texttt{47tuc\_fromIR.dat} there is a column called `cumweight', that indicates, for each star, how many stars we expect in the field at that magnitude of brighter. This cumulative distribution is calculated by counting how many stars are in the image and correcting the number for the ones that the telescope might have missed (the completeness is given as a percentage in the column `comp'. In this field, which is in the outskirts of the cluster, we estimated the birth rate to be about 1 WD every $10^6$ years.
+
+\textbf{Task:}\vspace{-1em}
+\begin{enumerate}
+\item Plot the magnitude in $F814W$ against the cumulative distribution divided by the birth rate. You will get the cooling curve of the white dwarfs in the cluster. Make the x-axis logarithmic.
+\item On top of it, plot the magnitude in $F814W$ against the log of the star age for your theoretical models. And don't forget to add the distance modulus!
+\item Since the zero age of the WD we chose is arbitrary, you might have to add or subtract some small constant to the age of your models to make them fit better the data. 
+\item Which evolution does the data agree with the best?
+\end{enumerate}
 
 
 \textbf{Bonus Task:}\\
@@ -169,19 +179,18 @@ The key parameter to plot is the specific entropy but it doesn't get output in t
 
 }
 
-\textbf{Task: Young White Dwarfs}
-Young white dwarfs are the brightest stars in the cluster in the ultraviolet.  We have provided a list of young white dwarfs in 47 Tucanae for you to study.
+\subsection{The inner field}
+
+In the file \texttt{47tuc\_fromUV.dat} you can find the observed flux from about 3000 white dwarfs. These white dwarfs live in the center of the cluster, where the density of stars is extremely high. For this reason, it is hard to detect white dwarfs in the visible or in the infrared, as the light is dominated by the very bright red giants. However, young white dwarfs are the brightest objects in the UV, because they are very hot. That's why we observed them in the filters $F225W$ and $F336W$ with Hubble. You can see the UV image here: \url{http://coolpulsars.org/images/47TucCore_Image/}.
+
+This set of young white dwarfs in the UV is what we are going to use in the next lab, so let's take a look at it.
+
+\textbf{Task: Young White Dwarfs}\vspace{-1em}
 \begin{enumerate}
  \setlength\itemsep{0em}
-\item Plot the magnitude $F225W$ against $F225W-F336W$ from your models
-\item Plot $F225W$ against time.
-\item Add the observed  data to the two plots.  
-\item Which evolution do they agree with the best?
+\item Make a CMD with the magnitude $F225W$ against $F225W-F336W$ from the data and from your models. The distance modulus is of course the same, but do you need to add reddening in these filters? How much?
+\item Make a cumulative distribution plot for $F225W$ as we did before for $F814W$. This time though, since we are in the center of the clusted and the density of stars is higher, we expect a higher birth rate. Can you figure it out from comparing the models with the data?
 \end{enumerate}
-
-\hint{\textbf{Hint:}
-
-Again how do you have to transform the model magnitudes, colours and ages to fit the observations?  What are the key parameters that you can learn from this step?  Can they be different than in the previous task?}
 
 We will study the young white dwarfs in more detail in the next lab where you will program MESA to vary the neutrino rates within the white dwarfs and see what happens.
 
