@@ -34,7 +34,7 @@ But before starting the run, we need to make some changes.
 \textbf{Task:} \\ 
 In \texttt{inlist\_project}, the value called \texttt{mesh\_delta\_coeff} is set equal to 2. This parameter determines how fine the mesh is: a larger value increases the max allowed deltas and decreases the number of grid points and a smaller does the opposite. e.g., you will roughly double the number of grid points if you cut \texttt{mesh\_delta\_coeff} in half. We need a high value of \texttt{mesh\_delta\_coeff} in the first few models to help the run relax, but we want a finer mesh for later stages.
 
-Also, the atmosphere boundary condition are set to \texttt{which\_atm\_option = `grey\_and\_cap'}. These are ok for high temperatures, but for effective temperatures lower that 40,000 K, the boundary conditions called \texttt{`WD\_tau\_25\_tables'} are much better for a WD.
+Also, the atmosphere boundary condition are set to \texttt{which\_atm\_option = `grey\_and\_kap'}. These are ok for high temperatures, but for effective temperatures lower that 40,000 K, the boundary conditions called \texttt{`WD\_tau\_25\_tables'} are much better for a WD.
 
 We want to use \texttt{run\_star\_extras.f} to make those changes. If you open the file \texttt{src/run\_star\_extras.f}, you'll see that it doesn't contain the usual routines, but it includes the file \texttt{standard\_run\_star\_extras.inc}. This file can be found in the folder \texttt{\$MESA\_DIR/include}.
 
@@ -127,8 +127,8 @@ You may find that some of the models fail to run.  You can try increasing the nu
 
 }
 
-\textbf{Bonus Task:}\\
-You can use the include program \texttt{makefakehistory.py} to recalculate the thermal evolution assuming that specific heat capacity of the star is constant (it remains liquid) or that the cooling is due to emission of radiation from the surface.  Compare the results of these simulations to the original ones.
+%\textbf{Bonus Task:}\\
+%You can use the include program \texttt{makefakehistory.py} to recalculate the thermal evolution assuming that specific heat capacity of the star is constant (it remains liquid) or that the cooling is due to emission of radiation from the surface.  Compare the results of these simulations to the original ones.
 
 \section{Observations}
 
